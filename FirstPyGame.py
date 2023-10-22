@@ -14,15 +14,16 @@ width = 800
 height = 400
 screen = pygame.display.set_mode((width, height))
 
-'''
----------- Code for creating and adding color to test surface ---------------
-test_surface_width = 100
-test_surface_height = 200
-test_surface = pygame.Surface((test_surface_width, test_surface_height)) # create regular surface
-test_surface.fill('White') # fill the surface with a color
-'''
+#---------- Code for creating and adding color to test surface ---------------
+#test_surface_width = 100
+#test_surface_height = 200
+#test_surface = pygame.Surface((test_surface_width, test_surface_height)) # create regular surface
+#test_surface.fill('White') # fill the surface with a color
+#
 
 #code for loading an image to a surface
+# .convert() converts the loaded image to something native that pygame can easily render, 
+#i.e, it speeds up pygame working
 sky_surface = pygame.image.load('./graphics/sky.png').convert()
 ground_surface = pygame.image.load('./graphics/ground.png').convert()
 surface_font = pygame.font.Font('./font/Pixeltype.ttf', 50) # creating font object to create a font surface
@@ -46,10 +47,11 @@ while(True):
     screen.blit(ground_surface, (0, 300))
     screen.blit(text_surface, (250, 100))
 
+    # reset snail_x_pos so it re-appears after it reaches it's end position
     if(snail_x_pos <= -100):
         snail_x_pos = 800
     screen.blit(snail_surface, (snail_x_pos, snail_y_pos))
-    snail_x_pos = snail_x_pos-4
+    snail_x_pos = snail_x_pos-4 #changes so snail appeares to be moving along x_pos
 
     pygame.display.update() # update the display surface, in our case screen
     clock.tick(60) # set upperlimit for framerate as 60 fps
