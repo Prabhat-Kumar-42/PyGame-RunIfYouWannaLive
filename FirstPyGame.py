@@ -4,7 +4,7 @@ from sys import exit
 pygame.init() #pygame.init() initializes pygame
 pygame.display.set_caption('speed')
 
-clock = pygame.time.Clock()
+clock = pygame.time.Clock() #clock obj, helps with time and controlling framerate
 
 width = 800
 height = 400
@@ -18,4 +18,4 @@ while(True):
     # draw all our elements
     # update everything
     pygame.display.update() # update the display surface, in our case screen
-    clock.tick(60)
+    clock.tick(60) # set upperlimit for framerate as 60 fps
