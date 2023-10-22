@@ -2,7 +2,7 @@ import pygame
 from sys import exit
 
 pygame.init() #pygame.init() initializes pygame
-
+pygame.display.set_caption('speed')
 width = 800
 height = 400
  
