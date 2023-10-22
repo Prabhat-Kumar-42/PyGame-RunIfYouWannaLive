@@ -9,14 +9,15 @@ def display_score(program_start_time):
     time_surface = surface_font.render(str(current_time), False, "Dark Green")
     time_rectangle = time_surface.get_rect(midleft = (700, 50))
     screen.blit(time_surface, time_rectangle)
+    return current_time
 
 def initializeScreen():
     # attach and display the test_surface to display surface, bli stands for block image transfer (fancy way of saying put one surface on another surface)
     screen.blit(sky_surface , (0,0)) #(surface, position) 
     screen.blit(ground_surface, (0, 300))
 
-def gameEndScreen():
-    not_fast_enough_surface = surface_font.render("You Were Not Fast Enough !!", False, "White")
+def gameEndScreen(current_score):
+    not_fast_enough_surface = surface_font.render("Your Score is " + str(current_score), False, "White")
     not_fast_enough_rectangle = not_fast_enough_surface.get_rect(midtop = (400, 300))
     player_stand_surface = pygame.image.load('./graphics/Player/player_stand.png').convert_alpha()
     player_stand_surface = pygame.transform.rotozoom(player_stand_surface, 0, 2)
@@ -49,6 +50,7 @@ width = 800
 height = 400
 screen = pygame.display.set_mode((width, height))
 start_screen = True
+current_score = 0
 #---------- Code for creating and adding color to test surface ---------------
 #test_surface_width = 100
 #test_surface_height = 200
@@ -105,7 +107,7 @@ while(True):
     if game_active :
         start_screen = False
         initializeScreen()   
-        display_score(program_start_time)
+        current_score = display_score(program_start_time)
 
         #pygame.draw.rect(screen, '#c0e8ec', score_rectangle)
         #pygame.draw.rect(screen, '#c0e8ec', score_rectangle, 1)
@@ -141,7 +143,7 @@ while(True):
         screen.blit(player_surface, player_rectangle)
     else:
         screen.fill((94, 129, 162))
-        gameEndScreen()
+        gameEndScreen(current_score)
 
     pygame.display.update() # update the display surface, in our case screen
     clock.tick(60) # set upperlimit for framerate as 60 fps
