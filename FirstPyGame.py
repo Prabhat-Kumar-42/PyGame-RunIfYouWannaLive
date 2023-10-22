@@ -14,7 +14,31 @@ def initializeScreen():
     # attach and display the test_surface to display surface, bli stands for block image transfer (fancy way of saying put one surface on another surface)
     screen.blit(sky_surface , (0,0)) #(surface, position) 
     screen.blit(ground_surface, (0, 300))
-    
+
+def gameEndScreen():
+    not_fast_enough_surface = surface_font.render("You Were Not Fast Enough !!", False, "White")
+    not_fast_enough_rectangle = not_fast_enough_surface.get_rect(midtop = (400, 300))
+    player_stand_surface = pygame.image.load('./graphics/Player/player_stand.png').convert_alpha()
+    player_stand_surface = pygame.transform.rotozoom(player_stand_surface, 0, 2)
+    player_stand_rectangle = player_stand_surface.get_rect(center = (400, 200))
+    screen.blit(player_stand_surface, player_stand_rectangle)
+    screen.blit(not_fast_enough_surface, not_fast_enough_rectangle)
+    addInstructions()
+
+def addInstructions():
+    instruction_font = pygame.font.Font('./font/Pixeltype.ttf', 30)
+    if start_screen:
+        instructions_surface = instruction_font.render('Press Space to Start the Game', False, "Dark Green")
+    else:
+        instructions_surface = instruction_font.render('Press Space to Restart the Game', False, "White")
+    instructions_rectangle = instructions_surface.get_rect(midtop = (400, 80))
+    screen.blit(instructions_surface, instructions_rectangle)
+
+def addTitle():
+    title_surface = surface_font.render('Run If You Wanna Live', False, 'Dark Green').convert()
+    title_rectangle = title_surface.get_rect(center = (400, 50))
+    screen.blit(title_surface, title_rectangle)
+    addInstructions()
 
 pygame.init()                                       #pygame.init() initializes pygame
 pygame.display.set_caption('Run If You Wanna Live') # Add Title to the Game Window
@@ -24,7 +48,7 @@ game_active = False                                 #boolean to check if game is
 width = 800
 height = 400
 screen = pygame.display.set_mode((width, height))
-
+start_screen = True
 #---------- Code for creating and adding color to test surface ---------------
 #test_surface_width = 100
 #test_surface_height = 200
@@ -40,9 +64,6 @@ ground_surface = pygame.image.load('./graphics/ground.png').convert()
 
 #score_surface
 surface_font = pygame.font.Font('./font/Pixeltype.ttf', 50) # creating font object to create a font surface
-title_surface = surface_font.render('Run If You Wanna Live', False, 'Dark Green').convert()
-title_rectangle = title_surface.get_rect(center = (400, 50))
-
 #snail
 snail_surface = pygame.image.load('./graphics/snail/snail1.png').convert_alpha()
 snail_x_pos = 800
@@ -82,6 +103,7 @@ while(True):
     # update everything
     
     if game_active :
+        start_screen = False
         initializeScreen()   
         display_score(program_start_time)
 
@@ -110,12 +132,16 @@ while(True):
     #mouse_pos = pygame.mouse.get_pos()
     #if ( player_rectangle.collidepoint(mouse_pos)):
     #    print("collision")
-    else:
+    elif start_screen:
         initializeScreen()
-        screen.blit(title_surface, title_rectangle)
+        addTitle()
+        #gameEndScreen()
         player_rectangle.bottom = 300
         player_rectangle.left = 80
         screen.blit(player_surface, player_rectangle)
-   
+    else:
+        screen.fill((94, 129, 162))
+        gameEndScreen()
+
     pygame.display.update() # update the display surface, in our case screen
     clock.tick(60) # set upperlimit for framerate as 60 fps
