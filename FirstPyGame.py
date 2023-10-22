@@ -1,10 +1,17 @@
 import pygame
 from sys import exit
 
-pygame.init() #pygame.init() initializes pygame
-pygame.display.set_caption('speed')
+#pygame.init() initializes pygame
+pygame.init() 
 
-clock = pygame.time.Clock() #clock obj, helps with time and controlling framerate
+# Add Title to the Game Window
+pygame.display.set_caption('Run If You Wanna Live')
+
+#clock obj, helps with time and controlling framerate
+clock = pygame.time.Clock() 
+
+# creating font object to create a font surface
+surface_font = pygame.font.Font('./font/Pixeltype.ttf', 50) 
 
 width = 800
 height = 400
@@ -20,6 +27,7 @@ test_surface.fill('White') # fill the surface with a color
  #code for loading an image to a surface
 sky_surface = pygame.image.load('./graphics/sky.png')
 ground_surface = pygame.image.load('./graphics/ground.png')
+text_surface = surface_font.render('Run If You Wanna Live', False, 'Dark Green')
 
 while(True):
     for event in pygame.event.get():
@@ -32,6 +40,7 @@ while(True):
     # attach and display the test_surface to display surface, bli stands for block image transfer (fancy way of saying put one surface on another surface)
     screen.blit(sky_surface , (0,0)) #(surface, position) 
     screen.blit(ground_surface, (0, 300))
+    screen.blit(text_surface, (250, 100))
 
     pygame.display.update() # update the display surface, in our case screen
     clock.tick(60) # set upperlimit for framerate as 60 fps
