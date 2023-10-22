@@ -18,7 +18,8 @@ test_surface = pygame.Surface((test_surface_width, test_surface_height)) # creat
 test_surface.fill('White') # fill the surface with a color
 '''
  #code for loading an image to a surface
-sky_surface = pygame.image.load('./graphics/Sky.png')
+sky_surface = pygame.image.load('./graphics/sky.png')
+ground_surface = pygame.image.load('./graphics/ground.png')
 
 while(True):
     for event in pygame.event.get():
@@ -30,6 +31,7 @@ while(True):
 
     # attach and display the test_surface to display surface, bli stands for block image transfer (fancy way of saying put one surface on another surface)
     screen.blit(sky_surface , (0,0)) #(surface, position) 
+    screen.blit(ground_surface, (0, 300))
 
     pygame.display.update() # update the display surface, in our case screen
     clock.tick(60) # set upperlimit for framerate as 60 fps
