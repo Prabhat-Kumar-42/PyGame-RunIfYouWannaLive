@@ -1,12 +1,11 @@
 import pygame
 from sys import exit
-from pygame.constants import KEYDOWN, MOUSEBUTTONDOWN
 
-def display_score():
+def display_score(program_start_time):
+    current_time = round(pygame.time.get_ticks()/1000, 2) - program_start_time
     score_surface = surface_font.render("Score: ", False, "Dark Green")
     score_rectangle = score_surface.get_rect(midright = (700, 50))
     screen.blit(score_surface, score_rectangle)
-    current_time = round(pygame.time.get_ticks()/1000, 2)
     time_surface = surface_font.render(str(current_time), False, "Dark Green")
     time_rectangle = time_surface.get_rect(midleft = (700, 50))
     screen.blit(time_surface, time_rectangle)
@@ -17,18 +16,11 @@ def initializeScreen():
     screen.blit(ground_surface, (0, 300))
     
 
-#pygame.init() initializes pygame
-pygame.init() 
-
-# Add Title to the Game Window
-pygame.display.set_caption('Run If You Wanna Live')
-
-#clock obj, helps with time and controlling framerate
-clock = pygame.time.Clock() 
-
-#boolean to check if game is over or not
-game_active = False 
-
+pygame.init()                                       #pygame.init() initializes pygame
+pygame.display.set_caption('Run If You Wanna Live') # Add Title to the Game Window
+clock = pygame.time.Clock()                         #clock obj, helps with time and controlling framerate
+program_start_time = 0
+game_active = False                                 #boolean to check if game is over or not
 width = 800
 height = 400
 screen = pygame.display.set_mode((width, height))
@@ -68,6 +60,8 @@ while(True):
             pygame.quit()             # pygame.quit() uninitializes pygame, it's basically opposite of pygame.init() 
             exit()                    # exit() from sys module closes any kind of code once it's called
         if game_active:
+            if program_start_time == 0:
+                program_start_time = pygame.time.get_ticks()/1000
             if player_rectangle.bottom >= 300:
                 if event.type == pygame.KEYDOWN:
                     #print('key down')
@@ -83,12 +77,13 @@ while(True):
                 or event.type == pygame.MOUSEBUTTONDOWN):
                 game_active = True
                 snail_rectangle.left = 800
+                program_start_time = 0 
         # draw all our elements
     # update everything
     
     if game_active :
         initializeScreen()   
-        display_score()
+        display_score(program_start_time)
 
         #pygame.draw.rect(screen, '#c0e8ec', score_rectangle)
         #pygame.draw.rect(screen, '#c0e8ec', score_rectangle, 1)
@@ -121,7 +116,6 @@ while(True):
         player_rectangle.bottom = 300
         player_rectangle.left = 80
         screen.blit(player_surface, player_rectangle)
-        pass
    
     pygame.display.update() # update the display surface, in our case screen
     clock.tick(60) # set upperlimit for framerate as 60 fps
