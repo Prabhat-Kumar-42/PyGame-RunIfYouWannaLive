@@ -92,6 +92,13 @@ height = 400
 screen = pygame.display.set_mode((width, height))
 start_screen = True
 current_score = 0
+
+#Sounds
+bg_music = pygame.mixer.Sound('./audio/music.wav')
+bg_music.play(loops = -1)
+
+jump_sound = pygame.mixer.Sound('./audio/jump.mp3')
+jump_sound.set_volume(0.5)
 #---------- Code for creating and adding color to test surface ---------------
 #test_surface_width = 100
 #test_surface_height = 200
@@ -133,6 +140,12 @@ player_surface = player_walk[player_index]
 player_rectangle = player_surface.get_rect(midbottom= (80, 300)) 
 player_gravity = 0
 
+#Groups
+#player = pygame.sprite.GroupSingle()
+#player.add(Player())
+
+#obstacle_group = pygame.sprite.Group()
+
 #TImers
 obstacle_timer = pygame.USEREVENT + 1
 pygame.time.set_timer(obstacle_timer, 1500)
@@ -149,6 +162,7 @@ while(True):
             pygame.quit()             # pygame.quit() uninitializes pygame, it's basically opposite of pygame.init() 
             exit()                    # exit() from sys module closes any kind of code once it's called
         if game_active:
+ #           obstacle_group.add(Obstacle('fly'))
             if program_start_time == 0:
                 program_start_time = pygame.time.get_ticks()/1000
             if player_rectangle.bottom >= 300:
@@ -156,11 +170,13 @@ while(True):
                     #print('key down')
                     if event.key == pygame.K_SPACE: 
                         player_gravity = -20
-
+                        jump_sound.play()
+                        
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     #print('mouse down')
                     if player_rectangle.collidepoint(event.pos) and player_rectangle.bottom >= 300:
                         player_gravity = -20
+                        jump_sound.play()
             if event.type == obstacle_timer:
                 if randint(0, 2):
                     obstacle_list.append(snail_surface.get_rect(bottomright = (randint(900, 1100), 300)))
@@ -210,7 +226,10 @@ while(True):
             player_rectangle.bottom = 300
         playerAnimations()
         screen.blit(player_surface, player_rectangle)
-   
+        
+    #    player.draw(screen)
+    #    player.update()
+
         #collision
         game_active = collisions(player_rectangle, obstacle_list) 
     #if player_rectangle.colliderect(snail_rectangle):
