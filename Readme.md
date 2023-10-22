@@ -1,6 +1,9 @@
 # Run If You Wanna Live
 
-![Game Screenshot](screenshot.png)
+![Home Screen](https://github.com/Prabhat-Kumar-42/PyGame-RunIfYouWannaLive/blob/main/ScreenShots/Home-Screen.png)
+![Game-Active-1](https://github.com/Prabhat-Kumar-42/PyGame-RunIfYouWannaLive/blob/main/ScreenShots/Game-Active-1.png)
+![Game-Active-2](https://github.com/Prabhat-Kumar-42/PyGame-RunIfYouWannaLive/blob/main/ScreenShots/Game-Active-2.png)
+![Game-Over](https://github.com/Prabhat-Kumar-42/PyGame-RunIfYouWannaLive/blob/main/ScreenShots/Game-Over.png)
 
 **Run If You Wanna Live** is a simple endless runner game created using the Pygame library in Python. In this game, you control a character who must jump over obstacles to stay alive and collect scores.
 
