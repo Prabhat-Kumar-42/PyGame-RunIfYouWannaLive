@@ -3,6 +3,9 @@ from sys import exit
 
 pygame.init() #pygame.init() initializes pygame
 pygame.display.set_caption('speed')
+
+clock = pygame.time.Clock()
+
 width = 800
 height = 400
  
@@ -15,3 +18,4 @@ while(True):
     # draw all our elements
     # update everything
     pygame.display.update() # update the display surface, in our case screen
+    clock.tick(60)
